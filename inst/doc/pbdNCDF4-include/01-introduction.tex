@@ -1,0 +1,133 @@
+{\color{red} \bf Warning:} This document is written to explain the main
+functions of \pkg{pbdNCDF4}~\citep{Ostrouchov2012pbdNCDF4package},
+version 0.1-0.
+Every effort will be made to ensure future versions are consistent with
+these instructions, but features in later versions may not be explained
+in this document.
+
+Information about the functionality of this package,
+and any changes in future versions can be found on website:
+\url{http://r-pbd.org/}.
+
+\section{Introduction}
+\label{sec:quick_start}
+\addcontentsline{toc}{section}{\thesection. Introduction}
+
+The \pkg{pbdNCDF4} package is an interface to the parallel NetCDF4 library \citep{netcdf} hosted by the Unidata program at the University Corporation for Atmospheric Research (UCAR). The package also requires the parallel HDF5 library \citep{hdf5} originally developed at the National Center for Supercomputing Applications. Full details about the system requirements and installation instructions for \pkg{pbdNCDF4} are provided in the following section.
+
+The \pkg{pbdNCDF4} package is in part based on, and incorporates, the \pkg{ncdf4} package, version 1.8 by David Pierce \citep{ncdf4}.  
+
+\subsection[System Requirements]{System Requirements}
+\label{sec:system_requirements}
+\addcontentsline{toc}{subsection}{\thesubsection. System Requirements}
+
+Before installing the \pkg{pbdNCDF4} package, there is some software which must first be installed on the user's system.  Additionally, \pkg{pbdNCDF4} requires the \pkg{pbdMPI}~\citep{Chen2012pbdMPIpackage} package, which itself requires some of the same dependencies that \pkg{pbdNCDF4} requires, so you are encouraged to install \pkg{pbdMPI} first.  See the \pkg{pbdMPI} vignette \citep{Chen2012pbdMPIvignette} for full details on how to install it and its dependencies.
+
+In order to install the \pkg{pbdNCDF4} package, you must first have system installations of:
+\begin{enumerate}
+  \item An MPI library (openmpi, mpich2, \dots).  This is also required by \pkg{pbdMPI}.
+  \item HDF5 (version 1.8.5) \url{http://www.hdfgroup.org/HDF5}
+  \item NetCDF4 (version 4.1.1) \url{http://www.unidata.ucar.edu/software/netcdf/}
+\end{enumerate}
+
+Ideally, the user needs to install the parallel versions of the HDF5 and NetCDF4 libraries, and in such case, these libraries should be compiled with MPI.  The \pkg{pbdNCDF4} package functions with serial installations of these libraries, but then only serial reading is possible, obviously.  In the event that the parallel versions of the HDF5 and NetCDF4 libraries are not available, \pkg{pbdNCDF4} acts as \pkg{ncdf4}. See Section~\ref{sec:collective} for details.
+
+{\color{red} \bf Warning:}
+In testing, we used version 1.8.5 of HDF5 and version 4.1.1 of NetCDF4.  Other versions may have parallel I/O problems.
+
+
+
+
+\subsection[Installation]{Installation}
+\label{sec:installation}
+\addcontentsline{toc}{subsection}{\thesubsection. Installation}
+
+The remaining assumes that \pkg{pbdMPI} is installed correctly.
+If \pkg{pbdMPI} is not yet installed, see the \pkg{pbdMPI}
+vignette for installation details.
+We also assume \code{nc-config}, a NetCDF4 utility which provides information about installation of NetCDF4 library, is in the user's \code{PATH}.  See Section~\ref{sec:special_path} for non-default installation if \code{nc-config} is not in the user's \code{PATH}.
+
+Users can download \pkg{pbdNCDF4} from CRAN at
+\url{http://cran.r-project.org}, and
+the installation can be done with the following commands from the shell:
+\begin{Command}
+tar zxvf pbdNCDF4_0.1-0.tar.gz
+R CMD INSTALL pbdNCDF4 --configure-args="--enable-parallel"
+\end{Command}
+
+Note that without the flag
+\code{ --configure-args="--enable-parallel"},
+\pkg{pbdNCDF4} compiles with NCDF4 and HDF5 in serial.  In this case, it is essentially the same as the \pkg{ncdf4} package.
+The extra parallel-enable \proglang{R} functions to \pkg{ncdf4}
+such as \code{nc_create_par},
+\code{nc_open_par}, and \code{nc_var_par_access} behave as their serial counterparts.
+The same \proglang{R} code with \pkg{pbdNCDF4}
+can run either serial or parallel depending on the configuration used.
+See Section~\ref{sec:collective} for details.
+
+
+\subsection[A Quick Example]{A Quick Example}
+\label{sec:quick_example}
+\addcontentsline{toc}{subsection}{\thesubsection. A Quick Example}
+
+Users can get started quickly with \pkg{pbdNCDF4} by learning from the following two examples.  Issued from the shell:
+\begin{Command}
+### Under command mode, run the demo with 2 processors by
+### (Use Rscript.exe for windows system)
+
+mpiexec -np 2 Rscript -e "demo(ncwrite_par,'pbdNCDF4',ask=F,echo=F)"
+mpiexec -np 2 Rscript -e "demo(ncread_par,'pbdNCDF4',ask=F,echo=F)"
+ncdump test_par.nc
+\end{Command}
+The examples first write a file \code{test\_par.nc}, then read it back in and print the results.
+
+In this example, each processor writes a $4\times 5$ column-major matrix (an $8\times 5$ matrix in total).  If the demos run successfully, the user can see the following output:
+\begin{CodeOutput}[title=Output of \code{ncread}]
+COMM.RANK = 0
+n = 8 p = 5
+COMM.RANK = 0
+     [,1] [,2] [,3] [,4] [,5]
+[1,]    2    3    4    5    6
+[2,]    2    3    4    5    6
+[3,]    2    3    4    5    6
+[4,]    2    3    4    5    6
+COMM.RANK = 1
+     [,1] [,2] [,3] [,4] [,5]
+[1,]    3    4    5    6    7
+[2,]    3    4    5    6    7
+[3,]    3    4    5    6    7
+[4,]    3    4    5    6    7
+\end{CodeOutput}
+
+Note that NetCDF4 stores data in row-major fashion as in the \proglang{C} programming language.  Above the data is represented in column-major fashion, as is used by \proglang{R}. Also, users can use the shell command \code{ncdump} (as in the third demo), a NetCDF4 utility, to show the exact contents of the \code{test\_par.nc} file.
+\begin{CodeOutput}[title=Output of \code{ncdump}]
+netcdf test_par {
+dimensions:
+	rows = 8 ;
+	columns = 5 ;
+variables:
+	int rows(rows) ;
+		rows:units = "number" ;
+		rows:long_name = "rows" ;
+	int columns(columns) ;
+		columns:units = "number" ;
+		columns:long_name = "columns" ;
+	int testMatrix(columns, rows) ;
+		testMatrix:units = "count" ;
+		testMatrix:_FillValue = -1 ;
+data:
+
+ rows = 1, 2, 3, 4, 5, 6, 7, 8 ;
+
+ columns = 1, 2, 3, 4, 5 ;
+
+ testMatrix =
+  2, 2, 2, 2, 3, 3, 3, 3,
+  3, 3, 3, 3, 4, 4, 4, 4,
+  4, 4, 4, 4, 5, 5, 5, 5,
+  5, 5, 5, 5, 6, 6, 6, 6,
+  6, 6, 6, 6, 7, 7, 7, 7 ;
+}
+\end{CodeOutput}
+Above, data are shown in the \proglang{C}, or row-major way.
+

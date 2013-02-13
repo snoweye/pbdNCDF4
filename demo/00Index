@@ -1,0 +1,4 @@
+ncwrite_par	pbdNCDF4	An example of writing a parallel NetCDF4 file. 
+ncread_par	pbdNCDF4	An example of reading a parallel NetCDF4 file. 
+ncwrite_ser	pbdNCDF4	An example of writing a serial NetCDF4 file. 
+ncread_ser	pbdNCDF4	An example of reading a serial NetCDF4 file. 

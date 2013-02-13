@@ -1,0 +1,30 @@
+citHeader("To cite pbdNCDF4 in a publication use:")
+
+citEntry(
+  entry = "Misc",
+  title = "{pbdNCDF4}: Programming with Big Data -- Interface to Parallel Unidata {NetCDF4} Format Data Files",
+  author = personList(as.person("George Ostrouchov"),
+                      as.person("Pragneshkumar Patel"),
+                      as.person("Wei-Chen Chen"),
+                      as.person("Drew Schmidt"),
+                      as.person("David Pierce")),
+  year = "2012",
+  note = "{R} Package, URL http://cran.r-project.org/package=pbdNCDF4",
+  textVersion = "Ostrouchov, G., Patel, P., Chen, W.-C., Schmidt, D., and Pierce, D. (2012) pbdNCDF4: Programming with Big Data -- Interface to Parallel Unidata NetCDF4 Format Data Files, R Package, URL http://cran.r-project.org/package=pbdNCDF4",
+  key = "Ostrouchov2012pbdNCDF4package"
+)
+
+citEntry(
+  entry = "Manual",
+  title = "A Quick Guide for the {pbdNCDF4} Package",
+  author = personList(as.person("George Ostrouchov"),
+                      as.person("Pragneshkumar Patel"),
+                      as.person("Wei-Chen Chen"),
+                      as.person("Drew Schmidt"),
+                      as.person("David Pierce")),
+  year = "2012",
+  note = "{R} Vignette, URL http://cran.r-project.org/package=pbdNCDF4",
+  textVersion = "Ostrouchov, G., Patel, P., Chen, W.-C., Schmidt, D., and Pierce, D. (2012) A Quick Guide for the pbdNCDF4 Package. R Vignette, URL http://cran.r-project.org/package=pbdNCDF4",
+  key = "Ostrouchov2012pbdNCDF4vignette"
+)
+

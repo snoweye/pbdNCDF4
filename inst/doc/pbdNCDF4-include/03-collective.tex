@@ -1,0 +1,61 @@
+
+\section[Collective I/O of \pkg{pbdNCDF4}]{Collective I/O of \pkg{pbdNCDF4}}
+\label{sec:collective}
+\addcontentsline{toc}{section}{\thesection. Collective I/O of \pkg{pbdNCDF4}}
+
+There are mainly three parallel functions added to \pkg{pbdNCDF4} over \pkg{ncdf4}, which
+enable collective I/O.  Namely, we include the \proglang{R} functions \code{nc_create_par()},
+\code{nc_open_par()}, and \code{nc_var_par_access()}.
+\begin{itemize}
+\item \code{nc_create_par()} is similar to \code{nc_create()} in \pkg{ncdf4},
+but creates a NetCDF4 file with parallel format.
+
+\item \code{nc_open_par()} is similar to \code{nc_open()} in \pkg{ncdf4},
+but is specifically for files in the parallel format.
+
+\item \code{nc_var_par_access()} is used to tell the NetCDF4 library to use
+collective read or write for the given variable.
+\end{itemize}
+
+By default, \code{nc_var_par_access()} sets \code{collective=TRUE}, which
+turns on collective read and write for the given variable.
+If \code{nc_var_par_access()} is not called or \code{collective=FALSE} is set,
+then the independent method will be used.
+
+If parallel versions of HDF5 and NetCDF4 libraries are not available
+or \code{-}\code{--enable-parallel} is not set when compiling \pkg{pbdNCDF4},
+then user needs to use the original \pkg{ncdf4} functions such as
+\code{nc_create} and \code{nc_open}.
+For reading in parallel, it will be a little bit slower than collective reading.
+However, the serial version should not be used for parallel writing
+unless manual synchronization is used.
+%However, for writing, the serial version need more \code{barrier} and
+%manually synchronization which means much slower than collective writing.
+%then these three functions behave as their serial counterparts.  In this case, the 
+%\code{nc_create_par()} function will call \code{nc_create()} on processor 0 and
+%call \code{nc_open()} on other processors (if any) with \code{write=TRUE}.  Likewise,
+%\code{nc_open_par()} calls \code{nc_open()} on all processors, while
+%\code{nc_var_par_access()} will do nothing on all processors.
+
+%This behavior allows \pkg{pbdNCDF4} to be fully backwards compatible with \pkg{ncdf4}.  For instance, we can run the serial example as in the
+We can run the serial example as in the
+Section~\ref{sec:quick_example} next without parallel read and write
+capabilities.
+Suppose serial HDF5 and NetCDF4
+are compiled and \pkg{pbdNCDF4} is installed without the enable parallel flag
+\code{-}\code{--enable-parallel}.
+\begin{Command}
+### Under command mode, run the demo with 2 processors by
+### (Use Rscript.exe for windows system)
+
+mpiexec -np 2 Rscript -e "demo(ncwrite_ser,'pbdNCDF4',ask=F,echo=F)"
+mpiexec -np 2 Rscript -e "demo(ncread_ser,'pbdNCDF4',ask=F,echo=F)"
+\end{Command}
+The first \code{demo()} uses two processors and
+independently writes to the file
+\code{test_ser.nc} in order to generate the same matrix,
+while the second \code{demo} reads back in and print the matrix in
+serial. The outputs are exactly the same as the parallel version.
+Note that the first demo \code{ncwrite_ser} provides an example of
+manual synchronization, see the source code for details.
+

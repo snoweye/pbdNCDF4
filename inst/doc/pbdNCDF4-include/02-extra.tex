@@ -1,0 +1,56 @@
+
+\section{Non-Standard System Installations}
+\label{sec:useful_info}
+\addcontentsline{toc}{section}{\thesection. Non-Standard System Installations}
+
+In this section we discuss a non-default method of installation for \pkg{pbdNCDF4}, as well as compiling the HDF5 and NetCDF4 libraries in parallel.
+
+\subsection[Special Path for NetCDF4]{Special Path for NetCDF4}
+\label{sec:special_path}
+\addcontentsline{toc}{subsection}{\thesubsection. Special Path for NetCDF4}
+
+As the with the \pkg{ncdf4} package, \pkg{pbdNCDF4} allows special
+configuration for \code{nc-config} via the flag \code{-}\code{--with-nc_config}.  For example, we might issue the command:
+\begin{Command}
+R CMD INSTALL pbdNCDF4 \
+  --configure-args="--with-nc-config=/usr/local/netcdf4/bin"
+\end{Command}
+which specifies that \code{nc-config} is in the directory \code{/usr/local/netcdf4/bin}.
+
+
+\subsection[Parallel HDF5 and NetCDF4]{Parallel HDF5 and NetCDF4}
+\label{sec:parallel_libraries}
+\addcontentsline{toc}{subsection}{\thesubsection. Parallel HDF5 and NetCDF4}
+
+Here we assume that the MPI headers are in \code{/usr/include/mpi} and the MPI libraries are in
+\code{/usr/lib}. 
+
+We can install HDF5 with parallel I/O via:
+\begin{CodeOutput}[title=Compile parallel HDF5]
+./configure \
+    --prefix=/usr/local/hdf5 \
+    --enable-parallel \
+    --enable-shared \
+    CC="mpicc -g" \
+    CFLAGS="-fPIC -I/usr/include/mpi" \
+    CPPFLAGS="-fPIC -I/usr/include/mpi" \
+    LDFLAGS="-L/usr/lib -lmpi"
+make
+make install
+\end{CodeOutput}
+
+For parallel NetCDF4, suppose that the parallel HDF5 library is installed in \code{/usr/local/hdf5}. Then we can install
+NetCDF4 with parallel I/O via:
+\begin{Command}[title=Compile parallel NetCDF4]
+./configure \
+    --prefix=/usr/local/netcdf4 \
+    --enable-netcdf4 \
+    --enable-shared \
+    CC="mpicc -g" \
+    CFLAGS="-fPIC -I/usr/include/mpi -I/usr/local/hdf5/include" \
+    CPPFLAGS="-fPIC -I/usr/include/mpi -I/usr/local/hdf5/include" \
+    LDFLAGS="-L/usr/lib -lmpi -L/usr/local/hdf5/lib -lhdf5"
+make
+make install
+\end{Command}
+

@@ -1,0 +1,17 @@
+
+======================= Log Before Release =====================================
+2012-12-26:
+  * Bugs free by Pragneshkumar Patel and Wei-Chen Chen.
+  * First package initialized.
+  * Add man pages for new parallel functions.
+  * Modify "configure.in".
+  * Change PACKAGE="ncdf4" to PACKAGE="pbdNCDF4" in all R code.
+  * Change "\link[ncdf4]" to "\link[pbdNCDF4]" in all man page.
+  * Migrate to ncdf4_1.8.tar.gz
+  * Fix multi-arch problem.
+  * Add copyright to vignette.
+  * Fix .Last.lib problem.
+
+2011-10-*:
+  * First initialized by George Ostrouchov.
+

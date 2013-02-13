@@ -1,0 +1,10 @@
+#!/bin/sh
+
+rm Makefile
+rm configure
+
+aclocal -I m4macros
+
+autoconf
+
+

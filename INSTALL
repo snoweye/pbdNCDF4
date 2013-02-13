@@ -1,0 +1,77 @@
+### This file is a quick installation for Solaris, Linux, and Mac OS X.
+
+--- 'pbdMPI' Installation:
+   See 'pbdMPI/INSTALL' for the details.
+
+
+--- Parallel HDF5 Installation:
+1. Suppose MPI heaers are in "/usr/include/mpi" and MPI libraries are in
+   "/usr/lib". Then, we can install HDF5 with parallel I/O.
+
+     > ./configure \
+           --prefix=/usr/local/hdf5 \
+           --enable-parallel \
+           --enable-shared \
+           CC="mpicc -g" \
+           CFLAGS="-fPIC -I/usr/include/mpi" \
+           CPPFLAGS="-fPIC -I/usr/include/mpi" \
+           LDFLAGS="-L/usr/lib -lmpi"
+     > make; make install
+
+
+--- Parallel NetCDF4 Installation:
+1. Suppose parallel HDF5 is installed in "/usr/local/hdf5". Then, we install
+   NetCDF4 with parallel I/O.
+
+     > ./configure \
+           --prefix=/usr/local/netcdf4 \
+           --enable-netcdf4 \
+           --enable-shared \
+           CC="mpicc -g" \
+           CFLAGS="-fPIC -I/usr/include/mpi -I/usr/local/hdf5/include" \
+           CPPFLAGS="-fPIC -I/usr/include/mpi -I/usr/local/hdf5/include" \
+           LDFLAGS="-L/usr/lib -lmpi -L/usr/local/hdf5/lib -lhdf5"
+     > make; make install
+
+
+--- 'pbdNCDF4' Installation:
+0. Download and extract 'pbdNCDF4'
+
+     > tar zxvf pbdNCDF4_0.1-0.tar.gz
+
+1. Default Installation:
+   This should work with most platforms with OpenMPI installed. The
+   configuration is based on Rmpi but detect the flags and libraries from
+   'mpicc --showme:*' which is more portable.
+
+     > R CMD INSTALL pbdNCDF4
+
+2. Non-default Installation:
+   If NetCDF4 library is not in the PATH, then we can install it by specifying
+   the path to "nc-config". It will be "/usr/local/netcdf4/bin" if
+   "/usr/local/netcdf4" is the installed directory.
+
+     > R CMD INSTALL pbdNCDF4 \
+         --configure-args="--with-nc-config=/usr/local/netcdf4/bin"
+
+3. Enable Parallel I/O:
+   Suppose parallel HDF5 and NetCDF4 libraries are installed correctly.
+   The configuration arguments can link with the libraries and enable
+   parallel I/O.
+
+     > R CMD INSTALL pbdNCDF4 \
+         --configure-args="--enable-parallel"
+
+
+--- Testing:
+   Suppose 'pbdMPI' and 'pbdNCDF4' are installed correctly. I can run
+
+     > mpiexec -np 2 Rscript -e "demo(ncwrite_par,'pbdNCDF4',ask=F,echo=F)"
+     > mpiexec -np 2 Rscript -e "demo(ncread_par,'pbdNCDF4',ask=F,echo=F)"
+
+   for parallel, and
+
+     > mpiexec -np 2 Rscript -e "demo(ncwrite_ser,'pbdNCDF4',ask=F,echo=F)"
+     > mpiexec -np 2 Rscript -e "demo(ncread_ser,'pbdNCDF4',ask=F,echo=F)"
+
+   for serial.
