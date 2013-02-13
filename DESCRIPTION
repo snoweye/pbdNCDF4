@@ -9,7 +9,7 @@ Authors@R: c(person("Pragneshkumar", "Patel", role = c("aut", "cre"), email =
         person("Wei-Chen", "Chen", role = "aut"),
         person("Drew", "Schmidt", role = "aut"),
         person("David", "Pierce", role = "aut"))
-Depends: R (>= 2.13.0), methods, rlecuyer, pbdMPI (>= 0.1-3)
+Depends: R (>= 2.13.0), methods, rlecuyer, pbdMPI (>= 0.1-4)
 LazyLoad: yes
 LazyData: yes
 OS_type: unix
