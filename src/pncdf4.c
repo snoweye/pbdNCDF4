@@ -1,7 +1,12 @@
 
 #include <stdio.h>
-// #include <netcdf.h>
-@NETCDF_INCLUDE@
+
+#if (NETCDF_INCLUDE & 1) == 0
+  #include <netcdf.h>
+#else
+  #include <netcdf_par.h>
+#endif
+
 #include <string.h>
 #include <stdlib.h>
 

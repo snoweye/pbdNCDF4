@@ -7,12 +7,17 @@ NETCDF_LDFLAGS = @NETCDF_LDFLAGS@
 ### Extra configurations.
 NETCDF_INCLUDE = @NETCDF_INCLUDE@
 NETCDF_PAR = @NETCDF_PAR@
+NETCDF_PAR_OBJS = @NETCDF_PAR_OBJS@
 NETCDF_RPATH = @NETCDF_RPATH@
 HAVE_NETCDF = @HAVE_NETCDF@
 
 ### Setup R package flags and substitute by configure
 PKG_LIBS = $(NETCDF_LDFLAGS) $(SPMD_LDFLAGS)
 PKG_CPPFLAGS = $(NETCDF_CPPFLAGS) $(SPMD_CPPFLAGS)
+
+### Setup R source code and objects
+R_OBJS = ncdf2.o ncdf3.o ncdf.o src_ncdf4.o
+OBJECTS = $(R_OBJS) $(NETCDF_PAR_OBJS)
 
 ### For user configuration.
 USER_CONF = Makeconf
@@ -25,6 +30,7 @@ all: $(SHLIB)
 	@echo "SPMD_LDFLAGS = $(SPMD_LDFLAGS)" >> $(USER_CONF)
 	@echo "NETCDF_INCLUDE = $(NETCDF_INCLUDE)" >> $(USER_CONF)
 	@echo "NETCDF_PAR = $(NETCDF_PAR)" >> $(USER_CONF)
+	@echo "NETCDF_PAR_OBJS = $(NETCDF_PAR_OBJS)" >> $(USER_CONF)
 	@echo "NETCDF_CPPFLAGS = $(NETCDF_CPPFLAGS)" >> $(USER_CONF)
 	@echo "NETCDF_LDFLAGS = $(NETCDF_LDFLAGS)" >> $(USER_CONF)
 	@echo "NETCDF_RPATH = $(NETCDF_RPATH)" >> $(USER_CONF)
