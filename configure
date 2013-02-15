@@ -598,6 +598,7 @@ NETCDF_RPATH
 NETCDF_PAR_OBJS
 NETCDF_PAR
 NETCDF_INCLUDE
+NETCDF_HEADER
 SPMD_LDFLAGS
 SPMD_CPPFLAGS
 EGREP
@@ -3334,6 +3335,7 @@ fi
 
 
 
+
 ac_config_files="$ac_config_files src/Makevars"
 
 cat >confcache <<\_ACEOF
@@ -5650,6 +5652,7 @@ echo "****************** Results of ncdf4 package configure *******************"
 echo " "
 echo "SPMD_CPPFLAGS   = $SPMD_CPPFLAGS"
 echo "SPMD_LDFLAGS    = $SPMD_LDFLAGS"
+echo "NETCDF_HEADER   = $NETCDF_HEADER"
 echo "NETCDF_INCLUDE  = $NETCDF_INCLUDE"
 echo "NETCDF_PAR      = $NETCDF_PAR"
 echo "NETCDF_PAR_OBJS = $NETCDF_PAR_OBJS"

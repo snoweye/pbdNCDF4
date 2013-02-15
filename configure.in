@@ -62,6 +62,7 @@ fi
 dnl substitue all configures.
 AC_SUBST(SPMD_CPPFLAGS)
 AC_SUBST(SPMD_LDFLAGS)
+AC_SUBST(NETCDF_HEADER)
 AC_SUBST(NETCDF_INCLUDE)
 AC_SUBST(NETCDF_PAR)
 AC_SUBST(NETCDF_PAR_OBJS)
@@ -82,6 +83,7 @@ echo "****************** Results of ncdf4 package configure *******************"
 echo " "
 echo "SPMD_CPPFLAGS   = $SPMD_CPPFLAGS"
 echo "SPMD_LDFLAGS    = $SPMD_LDFLAGS"
+echo "NETCDF_HEADER   = $NETCDF_HEADER"
 echo "NETCDF_INCLUDE  = $NETCDF_INCLUDE"
 echo "NETCDF_PAR      = $NETCDF_PAR"
 echo "NETCDF_PAR_OBJS = $NETCDF_PAR_OBJS"
