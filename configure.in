@@ -51,9 +51,20 @@ AC_ARG_ENABLE(parallel, [  --enable-parallel       link with parallel NetCDF4 an
   NETCDF_PAR=FALSE
 ])
 
+dnl Take care parallel C code.
 NETCDF_PAR_OBJS=""
 if test "X$NETCDF_PAR" = "XTRUE" ; then
   NETCDF_PAR_OBJS="pncdf4.o"
+fi
+
+dnl Take care R.par/* and R.ser/*
+if test "X$NETCDF_PAR" = "XTRUE" ; then
+  rm -rf ./R/pncdf4*
+  cp ./R.par/pncdf4* ./R/
+fi
+if test "X$NETCDF_PAR" = "XFALSE" ; then
+  rm -rf ./R/pncdf4*
+  cp ./R.ser/pncdf4* ./R/
 fi
 
 

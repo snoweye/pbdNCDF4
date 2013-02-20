@@ -1823,6 +1823,15 @@ if test "X$NETCDF_PAR" = "XTRUE" ; then
   NETCDF_PAR_OBJS="pncdf4.o"
 fi
 
+if test "X$NETCDF_PAR" = "XTRUE" ; then
+  rm -rf ./R/pncdf4*
+  cp ./R.par/pncdf4* ./R/
+fi
+if test "X$NETCDF_PAR" = "XFALSE" ; then
+  rm -rf ./R/pncdf4*
+  cp ./R.ser/pncdf4* ./R/
+fi
+
 
 
 
