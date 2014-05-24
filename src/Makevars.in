@@ -24,19 +24,21 @@ OBJECTS = $(R_OBJS) $(NETCDF_PAR_OBJS)
 USER_CONF = Makeconf
 
 ### Start making here.
-all: $(SHLIB)
-	@echo "SPMD_CPPFLAGS = $(SPMD_CPPFLAGS)" > $(USER_CONF)
-	@echo "SPMD_LDFLAGS = $(SPMD_LDFLAGS)" >> $(USER_CONF)
-	@echo "NETCDF_HEADER = $(NETCDF_HEADER)" >> $(USER_CONF)
-	@echo "NETCDF_INCLUDE = $(NETCDF_INCLUDE)" >> $(USER_CONF)
-	@echo "NETCDF_PAR = $(NETCDF_PAR)" >> $(USER_CONF)
-	@echo "NETCDF_PAR_OBJS = $(NETCDF_PAR_OBJS)" >> $(USER_CONF)
-	@echo "NETCDF_CPPFLAGS = $(NETCDF_CPPFLAGS)" >> $(USER_CONF)
-	@echo "NETCDF_LDFLAGS = $(NETCDF_LDFLAGS)" >> $(USER_CONF)
-	@echo "NETCDF_RPATH = $(NETCDF_RPATH)" >> $(USER_CONF)
-	@echo "HAVE_NETCDF = $(HAVE_NETCDF)" >> $(USER_CONF)
-	@echo "PKG_CPPFLAGS = $(PKG_CPPFLAGS)" >> $(USER_CONF)
-	@echo "PKG_LIBS = $(PKG_LIBS)" >> $(USER_CONF)
+all: Makeconf $(SHLIB)
+
+Makeconf:
+	echo "SPMD_CPPFLAGS = $(SPMD_CPPFLAGS)" > $(USER_CONF)
+	echo "SPMD_LDFLAGS = $(SPMD_LDFLAGS)" >> $(USER_CONF)
+	echo "NETCDF_HEADER = $(NETCDF_HEADER)" >> $(USER_CONF)
+	echo "NETCDF_INCLUDE = $(NETCDF_INCLUDE)" >> $(USER_CONF)
+	echo "NETCDF_PAR = $(NETCDF_PAR)" >> $(USER_CONF)
+	echo "NETCDF_PAR_OBJS = $(NETCDF_PAR_OBJS)" >> $(USER_CONF)
+	echo "NETCDF_CPPFLAGS = $(NETCDF_CPPFLAGS)" >> $(USER_CONF)
+	echo "NETCDF_LDFLAGS = $(NETCDF_LDFLAGS)" >> $(USER_CONF)
+	echo "NETCDF_RPATH = $(NETCDF_RPATH)" >> $(USER_CONF)
+	echo "HAVE_NETCDF = $(HAVE_NETCDF)" >> $(USER_CONF)
+	echo "PKG_CPPFLAGS = $(PKG_CPPFLAGS)" >> $(USER_CONF)
+	echo "PKG_LIBS = $(PKG_LIBS)" >> $(USER_CONF)
 
 clean:
 	@rm -rf *.o *.d *.rc *.so* *.dll *.dylib *.a *.lib Makedeps Makevars \
