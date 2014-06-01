@@ -35,13 +35,7 @@ endif
 
 ### Configurations.
 NETCDF4_CPPFLAGS = -I"${NETCDF4_ROOT}include/"
-                   # -I"${NETCDF4_ROOT}deps/${NETCDF4_ARCH}/include/"
 NETCDF4_LDFLAGS = "${NETCDF4_ROOT}bin/netcdf.dll"
-                  # "${NETCDF4_ROOT}deps/${NETCDF4_ARCH}/bin/hdf5_hl.dll" \
-                  # "${NETCDF4_ROOT}deps/${NETCDF4_ARCH}/bin/hdf5.dll" \
-                  # "${NETCDF4_ROOT}deps/${NETCDF4_ARCH}/bin/zlib.dll" \
-                  # "${NETCDF4_ROOT}deps/${NETCDF4_ARCH}/bin/msvcp100.dll" \
-                  # "${NETCDF4_ROOT}deps/${NETCDF4_ARCH}/bin/msvcr100.dll" \
 
 ### Setup R package flags and substitute by configure
 PKG_LIBS = $(NETCDF4_LDFLAGS)
