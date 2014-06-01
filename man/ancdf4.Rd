@@ -55,7 +55,7 @@
  that uses those dimensions, and will hold your data.
  Then call \code{\link[pbdNCDF4]{nc_create}}
  to create the netCDF file.
- Finally, call \code{\link[pbdNCDF4]{ncvar_put}}
+ Finally, call \code{ncvar_put}
  to write your data to the newly created netCDF file, 
  and \code{\link[pbdNCDF4]{nc_close}} when you are done.
 
@@ -73,7 +73,7 @@
  \code{\link[pbdNCDF4]{ncdim_def}},
  \code{\link[pbdNCDF4]{ncvar_def}},
  \code{\link[pbdNCDF4]{ncvar_get}},
- \code{\link[pbdNCDF4]{ncvar_put}},
+ \code{ncvar_put},
  \code{\link[pbdNCDF4]{ncvar_change_missval}},
  \code{\link[pbdNCDF4]{ncatt_get}},
  \code{\link[pbdNCDF4]{ncatt_put}}, 

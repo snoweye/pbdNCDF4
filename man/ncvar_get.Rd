@@ -74,7 +74,7 @@
 }
 \author{David W. Pierce \email{dpierce@ucsd.edu}}
 \seealso{ 
- \code{\link[pbdNCDF4]{ncvar_put}}.
+ \code{ncvar_put}.
 }
 \examples{
 # Start with the simplest example.  If the file only has one variable in it,

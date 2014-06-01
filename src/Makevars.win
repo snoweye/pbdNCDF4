@@ -1,0 +1,75 @@
+### Default environment.
+# NETCDF4_ROOT = C:\Program File\netCDF 4.3.2\
+# NETCDF4_ROOT_64 = C:\Program File\netCDF 4.3.2\
+# NETCDF4_ROOT_32 = C:\Program File\netCDF 4.3.2\
+
+### Get Rscript.
+R_SCMD = ${R_HOME}/bin${R_ARCH_BIN}/Rscript -e
+
+### Conversion if found any.
+NETCDF4_ROOT_32 = $(shell ${R_SCMD} "source('../R/get_winnetcdf4.r');get.sysenv('NETCDF4_ROOT_32')")
+NETCDF4_ROOT_64 = $(shell ${R_SCMD} "source('../R/get_winnetcdf4.r');get.sysenv('NETCDF4_ROOT_64')")
+NETCDF4_ROOT = $(shell ${R_SCMD} "source('../R/get_winnetcdf4.r');get.sysenv('NETCDF4_ROOT')")
+ifeq "$(WIN)" "64"
+  NETCDF4_ARCH = x64
+  ifeq "${NETCDF4_ROOT_64}" ""
+    ifeq "${NETCDF4_ROOT}" ""
+      NETCDF4_ROOT = C:/Program Files/netCDF 4.3.2/
+    endif
+    NETCDF4_ROOT_64 = ${NETCDF4_ROOT_64}
+  else
+    NETCDF4_ROOT = ${NETCDF4_ROOT_64}
+  endif
+else
+  NETCDF4_ARCH = w32
+  ifeq "${NETCDF4_ROOT_32}" ""
+    ifeq "${NETCDF4_ROOT}" ""
+      NETCDF4_ROOT = C:/Program Files (x86)/netCDF 4.3.2/
+    endif
+    NETCDF4_ROOT_64 = ${NETCDF4_ROOT_32}
+  else
+    NETCDF4_ROOT = ${NETCDF4_ROOT_32}
+  endif
+endif
+
+
+### Configurations.
+NETCDF4_CPPFLAGS = -I"${NETCDF4_ROOT}include/"
+                   # -I"${NETCDF4_ROOT}deps/${NETCDF4_ARCH}/include/"
+NETCDF4_LDFLAGS = "${NETCDF4_ROOT}bin/netcdf.dll"
+                  # "${NETCDF4_ROOT}deps/${NETCDF4_ARCH}/bin/hdf5_hl.dll" \
+                  # "${NETCDF4_ROOT}deps/${NETCDF4_ARCH}/bin/hdf5.dll" \
+                  # "${NETCDF4_ROOT}deps/${NETCDF4_ARCH}/bin/zlib.dll" \
+                  # "${NETCDF4_ROOT}deps/${NETCDF4_ARCH}/bin/msvcp100.dll" \
+                  # "${NETCDF4_ROOT}deps/${NETCDF4_ARCH}/bin/msvcr100.dll" \
+
+### Setup R package flags and substitute by configure
+PKG_LIBS = $(NETCDF4_LDFLAGS)
+PKG_CPPFLAGS = $(NETCDF4_CPPFLAGS) -w
+
+### Setup R source code and objects
+R_OBJS = ncdf2.o ncdf3.o ncdf.o src_ncdf4.o
+OBJECTS = $(R_OBJS)
+
+### For user configuration.
+USER_CONF = Makeconf
+
+### Start making here.
+all: Makeconf $(SHLIB)
+	rm -rf ../R/pncdf4* ../R/zzz.R
+	cp ../inst/R.ser/pncdf4* ../R
+	cp ../R/windows/zzz.R ../R
+
+Makeconf:
+	echo "NETCDF4_ROOT = $(NETCDF4_ROOT)" > $(USER_CONF)
+	echo "NETCDF4_ROOT_32 = $(NETCDF4_ROOT_32)" >> $(USER_CONF)
+	echo "NETCDF4_ROOT_64 = $(NETCDF4_ROOT_64)" >> $(USER_CONF)
+	echo "NETCDF4_ARCH = $(NETCDF4_ARCH)" >> $(USER_CONF)
+	echo "NETCDF4_CPPFLAGS = $(NETCDF4_CPPFLAGS)" >> $(USER_CONF)
+	echo "NETCDF4_LDFLAGS = $(NETCDF4_LDFLAGS)" >> $(USER_CONF)
+	echo "PKG_CPPFLAGS = $(PKG_CPPFLAGS)" >> $(USER_CONF)
+	echo "PKG_LIBS = $(PKG_LIBS)" >> $(USER_CONF)
+
+clean:
+	@rm -rf *.o *.d *.rc *.so* *.dll *.dylib *.a *.lib Makedeps Makevars \
+	        $(USER_CONF) $(SHLIB) $(OBJECTS)

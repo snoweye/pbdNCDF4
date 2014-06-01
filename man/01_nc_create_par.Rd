@@ -26,7 +26,7 @@
 \details{
   See \code{\link[pbdNCDF4]{nc_create}} for details.
   The parallel version is able to coordinate with other
-  \code{\link[pbdNCDF4]{nc_create_par}} instances
+  \code{nc_create_par} instances
   for more efficient operation in parallel. 
 }
 \value{
@@ -42,7 +42,7 @@
   Wei-Chen Chen, and Drew Schmidt.
 }
 \seealso{ 
-  \code{\link[pbdNCDF4]{nc_open_par}}, \code{\link[pbdNCDF4]{nc_var_par_access}},
+  \code{nc_open_par}, \code{nc_var_par_access},
   \code{\link[pbdNCDF4]{ncdim_def}}, \code{\link[pbdNCDF4]{ncvar_def}}. 
 }
 \examples{
