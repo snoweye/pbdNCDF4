@@ -7,7 +7,7 @@
 }
 \usage{
   nc_create_par(filename, vars, force_v4 = TRUE, verbose = FALSE,
-                comm = .SPMD.CT$comm, info = .SPMD.CT$info)
+                comm = 0L, info = 0L)
 }
 \arguments{
   \item{filename}{Name of the  NetCDF file to be created.}
