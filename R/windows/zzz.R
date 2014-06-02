@@ -9,13 +9,6 @@
 # } # End of .Last.lib().
 
 .onLoad <- function(libname, pkgname){
-  if(! is.loaded("spmd_initialize", PACKAGE = "pbdMPI")){
-    library.dynam("pbdMPI", "pbdMPI", libname)
-    if(pbdMPI::comm.is.null(0L) == -1){
-      pbdMPI::init()
-    }
-  }
-
   ### Modify from "../get.conf.r"
   file.name <- paste("./etc/", .Platform$r_arch, "/Makeconf", sep = "")
   file.path <- tools::file_path_as_absolute(

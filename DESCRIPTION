@@ -9,7 +9,8 @@ Authors@R: c(person("Pragneshkumar", "Patel", role = c("aut", "cre"), email =
         person("Wei-Chen", "Chen", role = "aut"),
         person("Drew", "Schmidt", role = "aut"),
         person("David", "Pierce", role = "aut"))
-Depends: R (>= 3.0.0), methods, rlecuyer, pbdMPI (>= 0.2-4)
+Depends: R (>= 3.0.0), 
+Enhances: pbdMPI
 LazyLoad: yes
 LazyData: yes
 Description: This package adds collective parallel read and write capability

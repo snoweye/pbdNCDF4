@@ -9,15 +9,15 @@
 # } # End of .Last.lib().
 
 .onLoad <- function(libname, pkgname){
-  if(! is.loaded("spmd_initialize", PACKAGE = "pbdMPI")){
-    library.dynam("pbdMPI", "pbdMPI", libname)
-    if(pbdMPI::comm.is.null(0L) == -1){
-      pbdMPI::init()
-    }
-  }
-
   if(!@NETCDF_PAR@){
-#    comm.cat("Parallel HDF5 and NetCDF4 libraries are not linked!!\n")
+    # comm.cat("Parallel HDF5 and NetCDF4 libraries are not linked!!\n")
+  } else{
+    if(! is.loaded("spmd_initialize", PACKAGE = "pbdMPI")){
+      library.dynam("pbdMPI", "pbdMPI", libname)
+      if(pbdMPI::comm.is.null(0L) == -1){
+        pbdMPI::init()
+      }
+    }
   }
 
   library.dynam("pbdNCDF4", pkgname, libname)

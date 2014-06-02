@@ -13,7 +13,7 @@
 #
 ##GO## added _par suffix and parameters comm, info
 nc_open_par <- function(filename, write = FALSE, readunlim = TRUE,
-    verbose = FALSE, comm = .SPMD.CT$comm, info = .SPMD.CT$info){
+    verbose = FALSE, comm = 0L, info = 0L){
 	if( (! is.character(filename)) || (nchar(filename) < 1))
 		stop("Passed a filename that is NOT a string of characters!")
 
@@ -35,8 +35,8 @@ nc_open_par <- function(filename, write = FALSE, readunlim = TRUE,
                  ## function parameters (copied, passed by address, returned as list)
                  as.character(filename),
                  as.integer(rv$cmode),
-                 comm=as.integer(comm.c2f(comm)),   ##GO##
-                 info=as.integer(info.c2f(info)),   ##GO##
+                 comm=as.integer(pbdMPI::comm.c2f(comm)),   ##GO##
+                 info=as.integer(pbdMPI::info.c2f(info)),   ##GO##
                  id=as.integer(rv$id),	# note: nc$id is the simple integer ncid of the base file (root group in the file)
                  error=as.integer(rv$error),
                  ## .C parameters
@@ -51,7 +51,7 @@ nc_open_par <- function(filename, write = FALSE, readunlim = TRUE,
 } # End of nc_open_par().
 
 nc_create_par <- function(filename, vars, force_v4 = TRUE, verbose = FALSE,
-    comm = .SPMD.CT$comm, info = .SPMD.CT$info){
+    comm = 0L, info = 0L){
         if(! force_v4){
           stop("This version will support parallel NetCDF version 4.")
         }
@@ -90,8 +90,8 @@ nc_create_par <- function(filename, vars, force_v4 = TRUE, verbose = FALSE,
                ## function parameters (copied, passed by address, retured as list)
 		filename,
 		as.integer(nc$cmode),
-                comm=as.integer(comm.c2f(comm)),  ##GO##
-                info=as.integer(info.c2f(info)),  ##GO##
+                comm=as.integer(pbdMPI::comm.c2f(comm)),  ##GO##
+                info=as.integer(pbdMPI::info.c2f(info)),  ##GO##
 		id=as.integer(nc$id),
 		error=as.integer(nc$error),
                ## .C parameters
@@ -116,10 +116,10 @@ nc_create_par <- function(filename, vars, force_v4 = TRUE, verbose = FALSE,
 nc_var_par_access <- function(nc, var, collective = TRUE, verbose = FALSE){
   nc.format <- ncdf4_format(nc$id)
   if(nc.format != "NC_FORMAT_NETCDF4"){
-    comm.cat("\nnc.format = ", nc.format, " is not for parallel I/O.\n",
-             sep = "", quiet = TRUE)
-    comm.cat("Warning: Serial write need more caution in parallel.\n\n",
-             sep = "", quiet = TRUE)
+    pbdMPI::comm.cat("\nnc.format = ", nc.format, " is not for parallel I/O.\n",
+                     sep = "", quiet = TRUE)
+    pbdMPI::comm.cat("Warning: Serial write need more caution in parallel.\n\n",
+                     sep = "", quiet = TRUE)
     return(invisible())
   }
 

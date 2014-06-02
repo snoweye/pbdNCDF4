@@ -13,14 +13,14 @@
 #
 ##GO## added _par suffix and parameters comm, info
 nc_open_par <- function(filename, write = FALSE, readunlim = TRUE,
-    verbose = FALSE, comm = .SPMD.CT$comm, info = .SPMD.CT$info){
+    verbose = FALSE, comm = 0L, info = 0L){
   stop("--enable-parallel is no set. Please use nc_open or recompile pbdNCDF4.")
   # nc_open(filename, write = write, readunlim = readunlim, verbose = verbose)
 } # End of nc_open_par().
 
 
 nc_create_par <- function(filename, vars, force_v4 = TRUE, verbose = FALSE,
-    comm = .SPMD.CT$comm, info = .SPMD.CT$info){
+    comm = 0L, info = 0L){
   stop("--enable-parallel is no set. Please use nc_create or recompile pbdNCDF4.")
   # nc_create(filename, vars, force_v4 = force_v4, verbose = verbose)
 } # End of nc_create_par().
