@@ -28,8 +28,10 @@
  \code{\link[pbdNCDF4]{ncvar_def}}
 }
 \examples{
+\dontrun{
 # Open a netCDF file, print information about it
 nc <- nc_open( "salinity.nc" )
 print(nc)
+}
 }
 \keyword{utilities}

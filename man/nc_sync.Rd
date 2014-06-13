@@ -24,6 +24,7 @@
 }
 \author{David W. Pierce \email{dpierce@ucsd.edu}}
 \examples{
+\dontrun{
 # The time you would use the sync.ncdf function is when you have an unlimited
 # dimension and are writing to the file timestep-by-timestep. Make a netCDF file 
 # that has an unlimited dimension for illustration.
@@ -56,5 +57,6 @@ for( i in 1:nt ) {
 
 # Always remember to close the file when done!!
 nc_close(nc)
+}
 }
 \keyword{utilities}

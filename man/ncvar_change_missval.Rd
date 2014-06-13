@@ -50,6 +50,7 @@
  \code{\link[pbdNCDF4]{ncvar_def}}.
 }
 \examples{
+\dontrun{
 # Make an example netCDF file with a given missing value.  We will
 # then change the missing value in the file using ncvar_change_missval
 
@@ -90,5 +91,6 @@ nc_close(nc)
 # the variable is set automatically by this function, but it is 
 # up to you whether or not you want to read in all the existing
 # data and change the values to the new missing value.
+}
 }
 \keyword{utilities}

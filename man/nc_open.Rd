@@ -56,6 +56,7 @@
  \code{\link[pbdNCDF4]{ncdim_def}}, \code{\link[pbdNCDF4]{ncvar_def}}. 
 }
 \examples{
+\dontrun{
 # Define an integer dimension 
 dimState <- ncdim_def( "StateNo", "count", 1:50 )
 
@@ -85,5 +86,6 @@ data <- ncvar_get(ncold)
 print("here is the data in the file:")
 print(data)
 nc_close( ncold )
+}
 }
 \keyword{utilities}

@@ -49,6 +49,7 @@
  \code{\link[pbdNCDF4]{ncatt_put}}.
 }
 \examples{
+\dontrun{
 # Make a simple netCDF file
 filename <- "atttest_types.nc"
 dim <- ncdim_def( "X", "inches", 1:12 )
@@ -90,5 +91,6 @@ doitfor( nc, var, "testatt_wacko" )
 doitfor( nc, 0,   "globalatt_int" )
 doitfor( nc, 0,   "globalatt_short" )
 doitfor( nc, 0,   "description" )
+}
 }
 \keyword{utilities}

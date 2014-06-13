@@ -100,6 +100,7 @@
  \code{ncvar_put}.
 }
 \examples{
+\dontrun{
 # Define an integer dimension 
 dimState <- ncdim_def( "StateNo", "count", 1:50 )
 
@@ -148,5 +149,6 @@ varFloat <- ncvar_def( "varFloat", "meters", dimt, missval, prec="single")
 varDouble<- ncvar_def( "varDouble","meters", dimt, missval, prec="double")
 nctypes <- nc_create("vartypes.nc", list(varShort,varInt,varFloat,varDouble) )
 nc_close(nctypes)
+}
 }
 \keyword{utilities}

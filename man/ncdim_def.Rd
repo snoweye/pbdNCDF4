@@ -88,6 +88,7 @@
  \code{\link[pbdNCDF4]{ncvar_def}}, \code{\link[pbdNCDF4]{nc_create}}
 }
 \examples{
+\dontrun{
 # Define some straightforward dimensions
 x <- ncdim_def( "Lon", "degreesE", 0.5:359.5)
 y <- ncdim_def( "Lat", "degreesN", as.double(-89:89))
@@ -115,6 +116,7 @@ for( i in 1:nc$ndims ) {
 	print(d$vals)
 	print(paste("    Unlimited:",d$unlim))
 	}
+}
 }
 \note{It is good practice, but not necessary, to pass the dimension's values 
  to this routine when the dimension is created.  It is also possible to 
