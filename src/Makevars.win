@@ -2,6 +2,7 @@
 # NETCDF4_ROOT = C:\Program File\netCDF 4.3.2\
 # NETCDF4_ROOT_64 = C:\Program File\netCDF 4.3.2\
 # NETCDF4_ROOT_32 = C:\Program File\netCDF 4.3.2\
+NETCDF4_VERSION="4.3.2"
 
 ### Get Rscript.
 R_SCMD = ${R_HOME}/bin${R_ARCH_BIN}/Rscript -e
@@ -34,9 +35,13 @@ endif
 
 
 ifeq ($(wildcard ${NETCDF4_ROOT}),)
+  NETCDF4_LINKED = FALSE
+
   ### Setup R source code and objects
   R_OBJS = a.o
 else
+  NETCDF4_LINKED = TRUE
+
   ### Configurations.
   NETCDF4_CPPFLAGS = -I"${NETCDF4_ROOT}include/"
   NETCDF4_LDFLAGS = "${NETCDF4_ROOT}bin/netcdf.dll"
@@ -60,12 +65,14 @@ all: Makeconf $(SHLIB)
 	cp ../R/windows/zzz.R ../R
 
 Makeconf:
-	echo "NETCDF4_ROOT = $(NETCDF4_ROOT)" > $(USER_CONF)
+	echo "NETCDF4_VERSION = $(NETCDF4_VERSION)" > $(USER_CONF)
+	echo "NETCDF4_ROOT = $(NETCDF4_ROOT)" >> $(USER_CONF)
 	echo "NETCDF4_ROOT_32 = $(NETCDF4_ROOT_32)" >> $(USER_CONF)
 	echo "NETCDF4_ROOT_64 = $(NETCDF4_ROOT_64)" >> $(USER_CONF)
 	echo "NETCDF4_ARCH = $(NETCDF4_ARCH)" >> $(USER_CONF)
 	echo "NETCDF4_CPPFLAGS = $(NETCDF4_CPPFLAGS)" >> $(USER_CONF)
 	echo "NETCDF4_LDFLAGS = $(NETCDF4_LDFLAGS)" >> $(USER_CONF)
+	echo "NETCDF4_LINKED = $(NETCDF4_LINKED)" >> $(USER_CONF)
 	echo "PKG_CPPFLAGS = $(PKG_CPPFLAGS)" >> $(USER_CONF)
 	echo "PKG_LIBS = $(PKG_LIBS)" >> $(USER_CONF)
 

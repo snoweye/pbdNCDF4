@@ -13,6 +13,25 @@
   netcdf4.root.32 <- Sys.getenv("NETCDF4_ROOT_32")
   netcdf4.root.64 <- Sys.getenv("NETCDF4_ROOT_64")
 
+  ### Modify from "../get.conf.r"
+  file.name <- paste("./etc/", .Platform$r_arch, "/Makeconf", sep = "")
+  file.path <- tools::file_path_as_absolute(
+                 system.file(file.name, package = "pbdNCDF4"))
+  ret <- scan(file.path, what = character(), sep = "\n", quiet = TRUE)
+
+  ### Get NETCDF4_LINKED. FALSE mean not link with netCDF.
+  arg <- "NETCDF4_LINKED"
+  id <- grep(paste("^", arg, " = ", sep = ""), ret)
+  netcdf4.linked <- gsub(paste("^", arg, " = (.*)", sep = ""),
+                         "\\1", ret[id[1]])
+
+  ### Get version.
+  arg <- "NETCDF4_VERSION"
+  id <- grep(paste("^", arg, " = ", sep = ""), ret)
+  netcdf4.version <- gsub(paste("^", arg, " = (.*)", sep = ""),
+                          "\\1", ret[id[1]])
+
+  ### Check system.
   if(netcdf4.root.32 != "" && .Platform$r_arch == "i386"){
     netcdf4.root <- netcdf4.root.32
     netcdf4.arch <- "w32"
@@ -20,12 +39,6 @@
     netcdf4.root <- netcdf4.root.64
     netcdf4.arch <- "x64"
   } else{
-    ### Modify from "../get.conf.r"
-    file.name <- paste("./etc/", .Platform$r_arch, "/Makeconf", sep = "")
-    file.path <- tools::file_path_as_absolute(
-                   system.file(file.name, package = "pbdNCDF4"))
-    ret <- scan(file.path, what = character(), sep = "\n", quiet = TRUE)
-
     ### Get NETCDF4_ROOT
     arg <- "NETCDF4_ROOT"
     id <- grep(paste("^", arg, " = ", sep = ""), ret)
@@ -54,7 +67,11 @@
   netcdf4.netcdf <- paste(netcdf4.bin, "netcdf.dll", sep = "")
 
   ### Check if netcdf4.root and dll files exist.
-  flag <- TRUE
+  netcdf4.root <- gsub("/$", "", netcdf4.root)
+  netcdf4.bin <- gsub("/$", "", netcdf4.bin)
+  netcdf4.deps <- gsub("/$", "", netcdf4.deps)
+
+  flag <- as.logical(netcdf4.linked)
   if(!file.exists(netcdf4.root)){
     cat("Not exits: ", netcdf4.root, "\n", sep = "")
     flag <- FALSE
@@ -116,12 +133,12 @@
     ### Load "pbdNCDF4.dll".
     library.dynam("pbdNCDF4", pkgname, libname)
   } else{
-    cat("\n===== WARNING =====\n")
-    cat("- netCDF 4.3.2 may not install correctly.\n")
-    cat("- pbdNCDF4 binary does not build with netCDF.\n")
-    cat("- Environment variables may not set originally.\n")
+    cat("===== WARNING =====\n")
+    cat("- netCDF ", netcdf4.version, " may not install at compile time.\n", sep = "")
+    cat("- Environment variables may not be correct at compile and run time.\n")
+    cat("- pbdNCDF4 binary may not link with netCDF.\n")
     cat("- Please consider to rebuild from source.\n")
-    cat("===================\n\n")
+    cat("===================\n")
   }
 
   invisible()
