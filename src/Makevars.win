@@ -1,8 +1,10 @@
 ### Default environment.
 # NETCDF4_ROOT = C:\Program File\netCDF 4.3.2\
 # NETCDF4_ROOT_64 = C:\Program File\netCDF 4.3.2\
-# NETCDF4_ROOT_32 = C:\Program File\netCDF 4.3.2\
-NETCDF4_VERSION="4.3.2"
+# NETCDF4_ROOT_32 = C:\Program File (x86)\netCDF 4.3.2\
+
+### Default version.
+NETCDF4_VERSION = 4.3.2
 
 ### Get Rscript.
 R_SCMD = ${R_HOME}/bin${R_ARCH_BIN}/Rscript -e

@@ -36,6 +36,7 @@
  \code{\link[pbdNCDF4]{ncdim_def}}, \code{\link[pbdNCDF4]{ncvar_def}}. 
 }
 \examples{
+\dontrun{
 # Define an integer dimension 
 dimState <- ncdim_def( "StateNo", "count", 1:50 )
 
@@ -55,5 +56,6 @@ popAlabama <- 4447100
 ncvar_put( ncnew, varPop, popAlabama, start=1, count=1 )
 
 nc_close(ncnew)
+}
 }
 \keyword{utilities}
