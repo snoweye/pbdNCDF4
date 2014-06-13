@@ -20,7 +20,7 @@ All required \code{*.dll} files are via \code{dyn.load()} in
 \code{.onLoad()} at package run time, and via \code{dyn.unload()} in
 \code{.onUnload()} when quiting the package.
 
-With a few click on both \code{exe} files,
+With a few click on both \code{*.exe} files,
 we suggest users to install at the system directory
 \begin{itemize}
 \item
@@ -29,7 +29,7 @@ we suggest users to install at the system directory
 \code{C:/Program Files/netCDF 4.3.2/} for the 64-bit library.
 \end{itemize}
 Note that the default for 32-bit may be the same as 64-bit, so do the change
-manually.
+manually since they can not be merged in general.
 
 
 \subsection[Install from Binary]{Install from Binary}
@@ -38,21 +38,46 @@ manually.
 
 The binary packages of \pkg{pbdNCDF4} are available on the website:
 ``Programming with Big Data in R'' at
-\url{http://r-pbd.org/}.% or
-%``CRAN'' at
-%\url{http://cran.r-project.org/package=pbdNCDF4}.
+\url{http://r-pbd.org/}.
 The binary can be installed by
 \begin{Command}
 R CMD INSTALL pbdNCDF4_0.1-3.zip
 \end{Command}
 
-As on Unix systems,
+As in Unix systems,
 one can start quickly with \pkg{pbdNCDF4} by learning from the
 following demos. There are two basic examples in serial.
 \begin{Command}
 demo(ncwrite_ser,'pbdNCDF4',ask=F,echo=F)
 demo(ncread_ser,'pbdNCDF4',ask=F,echo=F)
 \end{Command}
+
+At compile time, I save
+\code{NETCDF4_ROOT_32}, \code{NETCDF4_ROOT_64}, and \code{NETCDFR_ROOT}
+in \code{pbdNCDF4/etc/i386/Makeconf} and \code{pbdNCDF4/etc/x64/Makeconf}.
+At installation time, both files will be copied to
+\code{C:/Program Files/R/R-3.0.1/library/pbdNCDF4/...},
+and \code{pbdNCDF4/R/windows/zzz.R} will be compiled, too.
+At run time, \code{.onLoad()} of \code{pbdNCDF4/R/windows/zzz.R} will
+obtain \code{NETCDF4_ROOT_32}, \code{NETCDF4_ROOT_64}, and \code{NETCDFR_ROOT}
+from system environment variables via \code{Sys.getenv()} first.
+If environment variables were unavailable, \code{.onLoad()} will
+obtain them from corresponding \code{Makeconf}.
+In order to load \pkg{pbdNCDF4} correctly in windows, there are several
+ways can solve the problem:
+\begin{itemize}
+\item
+There are at least two ways to avoid dynamic file loading problems
+if any. Either change the \code{Makeconf} files to the personal/new
+installation of netCDF-C or set environment variables.
+\item
+There are also at least two ways to set environment variables in windows,
+either from system ``Control Panel'' or use batch file.
+\item
+Further, inside \proglang{R}, \code{Sys.setenv()} can be used to
+set environment variables in run time.
+\end{itemize}
+
 
 
 \subsection[Build from Source]{Build from Source}

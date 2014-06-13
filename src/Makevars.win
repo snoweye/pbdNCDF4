@@ -16,7 +16,7 @@ ifeq "$(WIN)" "64"
     ifeq "${NETCDF4_ROOT}" ""
       NETCDF4_ROOT = C:/Program Files/netCDF 4.3.2/
     endif
-    NETCDF4_ROOT_64 = ${NETCDF4_ROOT_64}
+    NETCDF4_ROOT_64 = ${NETCDF4_ROOT}
   else
     NETCDF4_ROOT = ${NETCDF4_ROOT_64}
   endif
@@ -26,23 +26,28 @@ else
     ifeq "${NETCDF4_ROOT}" ""
       NETCDF4_ROOT = C:/Program Files (x86)/netCDF 4.3.2/
     endif
-    NETCDF4_ROOT_64 = ${NETCDF4_ROOT_32}
+    NETCDF4_ROOT_32 = ${NETCDF4_ROOT}
   else
     NETCDF4_ROOT = ${NETCDF4_ROOT_32}
   endif
 endif
 
 
-### Configurations.
-NETCDF4_CPPFLAGS = -I"${NETCDF4_ROOT}include/"
-NETCDF4_LDFLAGS = "${NETCDF4_ROOT}bin/netcdf.dll"
+ifeq ($(wildcard ${NETCDF4_ROOT}),)
+  ### Setup R source code and objects
+  R_OBJS = a.o
+else
+  ### Configurations.
+  NETCDF4_CPPFLAGS = -I"${NETCDF4_ROOT}include/"
+  NETCDF4_LDFLAGS = "${NETCDF4_ROOT}bin/netcdf.dll"
 
-### Setup R package flags and substitute by configure
-PKG_LIBS = $(NETCDF4_LDFLAGS)
-PKG_CPPFLAGS = $(NETCDF4_CPPFLAGS) -w
+  ### Setup R package flags and substitute by configure
+  PKG_LIBS = $(NETCDF4_LDFLAGS)
+  PKG_CPPFLAGS = $(NETCDF4_CPPFLAGS) -w
 
-### Setup R source code and objects
-R_OBJS = ncdf2.o ncdf3.o ncdf.o src_ncdf4.o
+  ### Setup R source code and objects
+  R_OBJS = ncdf2.o ncdf3.o ncdf.o src_ncdf4.o
+endif
 OBJECTS = $(R_OBJS)
 
 ### For user configuration.
