@@ -1,4 +1,8 @@
+### Read pbdNCDF4 vignettes first at
+### http://cran.r-project.org/web/packages/pbdNCDF4/vignettes/pbdNCDF4-guide.pdf
+###
 ### This file is a quick installation for Solaris, Linux, and Mac OS X.
+### See `INSTALL.win' for Windows.
 
 --- 'pbdMPI' Installation:
    See 'pbdMPI/INSTALL' for the details.
@@ -75,3 +79,54 @@
      > mpiexec -np 2 Rscript -e "demo(ncread_ser,'pbdNCDF4',ask=F,echo=F)"
 
    for serial.
+
+
+
+### `INSTALL.win'
+### This part is a quick installation for Windows.
+### See vignettes for more detail steps for Windows.
+
+--- netCDF 4.3.2 Installation:
+1. Download 32-bit library from
+
+     http://www.unidata.ucar.edu/netcdf/win_netcdf/netCDF4.3.2-NC4-32.exe
+
+   and 64-bit library from
+
+     http://www.unidata.ucar.edu/netcdf/win_netcdf/netCDF4.3.2-NC4-64.exe .
+
+2. Install with a few clicks and manually assign directory for 32-bit
+   library at
+
+      C:/Program Files (x86)/netCDF 4.3.2/
+
+   and 64-bit library at
+
+      C:/Program Files/netCDF 4.3.2/ .
+
+
+--- 'pbdNCDF4' Installation:
+0. Download and extract 'pbdNCDF4'
+
+     > tar zxvf pbdNCDF4_0.1-3.tar.gz
+
+1. Set Environment Variables:
+
+     SET NETCDF4_ROOT_32 = C:/Program Files (x86)/netCDF 4.3.2/
+     SET NETCDF4_ROOT_64 = C:/Program Files/netCDF 4.3.2/
+     SET NETCDF4_ROOT=%NETCDF4_ROOT_64%
+
+2. Set Rtools:
+
+     SET R_HOME=C:/Program Files/R/R-3.0.1/
+     SET RTOOLS=C:/Rtools/bin/
+     SET MINGW=C:/Rtools/gcc-4.6.3/bin/
+
+     SET PATH=%R_HOME%;%R_HOME%bin/;%RTOOLS%;%MINGW%;%PATH%
+     SET PATH=%NETCDF4_ROOT%bin/;%PATH%
+
+3. Default Installation:
+
+     > R CMD INSTALL --build pbdNCDF4
+     > R CMD INSTALL pbdNCDF4_0.1-3.zip
+

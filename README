@@ -11,6 +11,7 @@ pbdNCDF4 requires
 
 For installing pbdNCDF4, 
   - see "INSTALL" for Solaris, Linux and Mac OS.
+  - see "INSTALL.win" for Windows.
 
 More information about pbdNCDF4 can be found in
   1. pbdNCDF4 vignette at 'pbdNCDF4/inst/doc/pbdNCDF4-guide.pdf'
