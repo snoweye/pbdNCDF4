@@ -1,6 +1,6 @@
 %\VignetteIndexEntry{pbdNCDF4-guide}
 
-\documentclass[article,shortnames,nojss]{pbdNCDF4-include/jss}
+\documentclass[article,shortnames,nojss]{jss}
 
 
 \usepackage{verbatim}
@@ -86,6 +86,7 @@ San Diago, CA, USA
 
 %% end of declarations %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\input{./pbdNCDF4-include/my_jss.cls}
 \input{./pbdNCDF4-include/00-preamble}
 
 \begin{document}

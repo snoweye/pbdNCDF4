@@ -6,8 +6,8 @@ pbdNCDF4 requires
   - SUN HPC 8.2.1 (OpenMPI) for Solaris.
   - OpenMPI for Linux.
   - OpenMPI for Mac OS X.
-  - HDF5 library.
-  - NetCDF4 library.
+  - (Parallel) HDF5 library.
+  - (Parallel) NetCDF4 library.
 
 For installing pbdNCDF4, 
   - see "INSTALL" for Solaris, Linux and Mac OS.
