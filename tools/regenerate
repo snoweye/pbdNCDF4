@@ -1,0 +1,10 @@
+#!/bin/sh
+
+cd ../
+
+rm -rf configure
+aclocal -I tools
+autoconf
+./cleanup
+
+cd tools/

@@ -39,6 +39,7 @@
  \code{\link[pbdNCDF4]{ncvar_def}}.
 }
 \examples{
+\dontrun{
 #===================================================================
 # PART 1.  MAKE A TEST NETCDF FILE THAT WE WILL MANIPULATE IN PART 2
 #===================================================================
@@ -100,5 +101,6 @@ ncid_old <- ncvar_rename( ncid_old, old_varname, new_varname )
 print(ncid_old)
 
 nc_close( ncid_old )
+}
 }
 \keyword{utilities}

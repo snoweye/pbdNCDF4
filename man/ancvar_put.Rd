@@ -64,6 +64,7 @@
  \code{\link[pbdNCDF4]{ncvar_get}}.
 }
 \examples{
+\dontrun{
 #--------------------------------
 # Make a few dimensions we can use
 #--------------------------------
@@ -146,5 +147,6 @@ ncid <- nc_create( "colornames.nc", list(varcolors) )
 ncvar_put( ncid, "colors", cnames, verbose=TRUE )
 
 nc_close( ncid )
+}
 }
 \keyword{utilities}

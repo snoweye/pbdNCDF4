@@ -1,5 +1,5 @@
-useDynLib(pbdNCDF4)
-import(methods, rlecuyer, pbdMPI)
+# useDynLib(pbdNCDF4)
+# import(methods, rlecuyer, pbdMPI)
 
 export(nc_open_par, nc_create_par, nc_var_par_access, ncdump, vobjtovarid4)
 

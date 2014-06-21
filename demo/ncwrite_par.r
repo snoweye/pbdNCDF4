@@ -1,5 +1,6 @@
 ### SHELL> mpiexec -np 2 Rscript --vanilla [...].r
 
+library(pbdMPI, quiet = TRUE)
 library(pbdNCDF4, quiet = TRUE)
 
 ### default of pbdMPI

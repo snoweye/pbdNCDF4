@@ -38,6 +38,7 @@
  \code{\link[pbdNCDF4]{ncatt_get}}.
 }
 \examples{
+\dontrun{
 # Make a simple netCDF file
 filename <- "atttest_types.nc"
 dim <- ncdim_def( "X", "inches", 1:12 )
@@ -55,5 +56,6 @@ ncatt_put( ncnew, 0, "globalatt_short", 7, prec="short" )
 ncatt_put( ncnew, 0, "description", 
 	"this is a test file with attributes of various types")
 nc_close(ncnew)
+}
 }
 \keyword{utilities}

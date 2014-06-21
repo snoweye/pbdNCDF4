@@ -1,0 +1,148 @@
+
+\section[Windows System]{Windows System}
+\label{sec:windows_system}
+\addcontentsline{toc}{section}{\thesection. Windows System}
+
+Windows system has serial HDF5 and NetCDF4 libraries available in
+both 32- and 64-bit systems. The pre-built (\pkg{netCDF-C}) libraries can be
+downloaded from
+\url{http://www.unidata.ucar.edu/software/netcdf/docs/winbin.html}.
+For example, the stable release (\pkg{netCDF-C 4.3.2}) has
+\begin{itemize}
+\item 32-bit library at \\
+\url{http://www.unidata.ucar.edu/netcdf/win_netcdf/netCDF4.3.2-NC4-32.exe}, and
+\item 64 bit library at \\
+\url{http://www.unidata.ucar.edu/netcdf/win_netcdf/netCDF4.3.2-NC4-64.exe}.
+\end{itemize}
+Note that both pre-built libraries contain HDF5 and NetCDF4 serial versions
+and can be directly linked and loaded with \pkg{pbdNCDF4} inside \proglang{R}.
+
+All required \code{*.dll} files are via \code{dyn.load()} in
+\code{.onLoad()} at run time, and via \code{dyn.unload()} in
+\code{.onUnload()} when quiting the package.
+
+With a few click on both \code{*.exe} files,
+we suggest users to install at the system directory
+\begin{itemize}
+\item
+\code{C:/Program Files (x86)/netCDF 4.3.2/} for the 32-bit library, and
+\item
+\code{C:/Program Files/netCDF 4.3.2/} for the 64-bit library.
+\end{itemize}
+Note that the default for 32-bit may be the same as 64-bit, so do the change
+manually since they can not be merged in general.
+
+
+\subsection[Install from Binary]{Install from Binary}
+\label{sec:install_from_binary}
+\addcontentsline{toc}{subsection}{\thesubsection. Install from Binary}
+
+The binary packages of \pkg{pbdNCDF4} are available on the website:
+``Programming with Big Data in R'' at
+\url{http://r-pbd.org/}.
+The binary can be installed by
+\begin{Command}
+R CMD INSTALL pbdNCDF4_0.1-3.zip
+\end{Command}
+
+As in Unix systems,
+one can start quickly with \pkg{pbdNCDF4} by learning from the
+following demos. There are two basic examples in serial.
+\begin{Command}
+demo(ncwrite_ser,'pbdNCDF4',ask=F,echo=F)
+demo(ncread_ser,'pbdNCDF4',ask=F,echo=F)
+\end{Command}
+
+
+\subsection[Build from Source]{Build from Source}
+\label{sec:building_from_source}
+\addcontentsline{toc}{subsection}{\thesubsection. Build from Source}
+
+Installation of \pkg{pbdNCDF4} in windows system requires users to set
+environment variables \code{NETCDF4_ROOT_32} and
+\code{NETCDF4_ROOT_64} for both pre-built libraries.
+By default, we suggest
+\begin{Command}
+### Under command mode, or save in a batch file.
+SET NETCDF4_ROOT_32=C:\Program Files (x86)\netCDF 4.3.2\
+SET NETCDF4_ROOT_64=C:\Program Files\netCDF 4.3.2\
+SET NETCDF4_ROOT=%NETCDF4_ROOT_64%
+
+SET R_HOME=C:\Program Files\R\R-3.0.1\
+SET RTOOLS=C:\Rtools\bin\
+SET MINGW=C:\Rtools\gcc-4.6.3\bin\
+
+SET PATH=%R_HOME%;%R_HOME%bin\;%RTOOLS%;%MINGW%;%PATH%
+SET PATH=%NETCDF4_ROOT%bin\;%PATH%
+\end{Command}
+Here, we use 64-bit system for testing and set the \code{bin} directory
+to \code{PATH}, then
+some utilities such as \code{ncdump.exe} can be tested and used in
+\pkg{pbdNCDF4}.
+
+With a correct \code{PATH}, one can use the \proglang{R} commands
+to install/build the \pkg{pbdNCDF4}:
+\begin{Command}
+### Under command mode, build and install the binary.
+tar zxvf pbdNCDF4_0.1-3.tar.gz
+R CMD INSTALL --build pbdNCDF4
+R CMD INSTALL pbdNCDF4_0.1-3.zip
+\end{Command}
+
+
+\subsection[Detail Steps]{Detail Steps}
+\label{sec:detail_steps}
+\addcontentsline{toc}{subsection}{\thesubsection. Detail Steps}
+
+The steps of building \pkg{pbdNCDF4} in Windwos are described next:
+\begin{enumerate}
+\item
+At configure time, I take \code{NETCDF4_ROOT_32} and \code{NETCDF4_ROOT_64}
+from environment variables, then set \code{NETCDF4_ROOT} according to
+architecture.
+\item
+Before compile time, I check if the directories exists. If not, then I will
+set \code{NETCDF4_LINKED = FALSE} and feed
+a fake \code{a.c} to build a fake library in order to pass \code{R CMD check}.
+Note that this will eventually cause crashes at run time, so
+please check out \pkg{pbdNCDF4} binary from thirteen-01 or dropbox.
+\item
+At compile time, I save
+\code{NETCDF4_ROOT_32}, \code{NETCDF4_ROOT_64}, and \code{NETCDF4_ROOT}
+in \code{pbdNCDF4/etc/i386/Makeconf} and \code{pbdNCDF4/etc/x64/Makeconf}.
+\item
+At installation time, both files will be copied to
+\begin{center}
+\code{C:/Program Files/R/R-3.0.1/library/pbdNCDF4/...},
+\end{center}
+with built \code{*.dll} and others.
+Then, \code{pbdNCDF4/R/windows/zzz.R} will be copied to
+\code{pbdNCDF4/R/zzz.R} to finish compiling \proglang{R} codes.
+\item
+At load time, \code{.onLoad()} of \code{pbdNCDF4/R/windows/zzz.R} will
+obtain \code{NETCDF4_ROOT_32}, \code{NETCDF4_ROOT_64}, and \code{NETCDFR_ROOT}
+from system environment variables via \code{Sys.getenv()} first.
+\item
+If environment variables were unavailable, \code{.onLoad()} will
+obtain them from corresponding \code{Makeconf}.
+\item
+At run time, if none of \code{*.dll} were available or
+\code{NETCDF4_LINKED = FALSE}, then I would cast warnings.
+Note that any \pkg{pbdNCDF4} function evokes \code{.C()} function may
+cause crashes in this case.
+\end{enumerate}
+
+In order to load \pkg{pbdNCDF4} correctly in windows, there are several
+ways can solve the problem:
+\begin{itemize}
+\item
+There are at least two ways to avoid dynamic file loading problems
+if any. Either change the \code{Makeconf} files to the personal/new
+installation of \pkg{netCDF-C} or change environment variables.
+\item
+There are also at least two ways to set environment variables in windows,
+either from system ``Control Panel'' or use batch file.
+\item
+Further, inside \proglang{R}, \code{Sys.setenv()} can be used to
+set environment variables in run time.
+\end{itemize}

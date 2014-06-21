@@ -7,7 +7,7 @@
 }
 \usage{
   nc_open_par(filename, write = FALSE, readunlim = TRUE,
-     verbose = FALSE, comm = .SPMD.CT$comm, info = .SPMD.CT$info)
+              verbose = FALSE, comm = 0L, info = 0L)
 }
 \arguments{
   \item{filename}{Name of the existing NetCDF file to be opened.}
@@ -26,7 +26,7 @@
 }
 \details{
   See \code{\link[pbdNCDF4]{nc_open}} details. The parallel version
-  is able to coordinate with other \code{\link[pbdNCDF4]{nc_open_par}}
+  is able to coordinate with other \code{nc_open_par}
   instances for more efficient operation in parallel. 
 }
 \value{
@@ -41,7 +41,7 @@
   Wei-Chen Chen, and Drew Schmidt.
 }
 \seealso{ 
-  \code{\link[pbdNCDF4]{nc_create_par}}, \code{\link[pbdNCDF4]{nc_var_par_access}},
+  \code{nc_create_par}, \code{nc_var_par_access},
   \code{\link[pbdNCDF4]{ncdim_def}}, \code{\link[pbdNCDF4]{ncvar_def}}. 
 }
 \examples{

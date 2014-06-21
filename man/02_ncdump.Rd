@@ -23,9 +23,9 @@
   Wei-Chen Chen, and Drew Schmidt.
 }
 \seealso{ 
-  \code{\link[pbdNCDF4]{nc_create_par}},
-  \code{\link[pbdNCDF4]{nc_open_par}},
-  \code{\link[pbdNCDF4]{nc_var_par_access}}.
+  \code{nc_create_par},
+  \code{nc_open_par},
+  \code{nc_var_par_access}.
 }
 \examples{
 \dontrun{

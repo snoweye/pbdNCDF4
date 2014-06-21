@@ -1,6 +1,6 @@
 %\VignetteIndexEntry{pbdNCDF4-guide}
 
-\documentclass[article,shortnames,nojss]{pbdNCDF4-include/jss}
+\documentclass[article,shortnames,nojss]{jss}
 
 
 \usepackage{verbatim}
@@ -9,7 +9,7 @@
 \usepackage{amssymb}
 \definecolor{mygreen}{RGB}{0,150,0}
 
-\newcommand{\ncdfversion}{0.1-2}
+\newcommand{\ncdfversion}{0.1-3}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% declarations for jss.cls %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -19,12 +19,12 @@
 \author{
 \begin{minipage}{6in}
 \centering
-Pragneshkumar Patel$^1$, George Ostrouchov$^{1,2}$, Wei-Chen Chen$^2$, \\
-Drew Schmidt$^1$, David Pierce$^3$
+Pragneshkumar Patel$^1$, George Ostrouchov$^{1,2}$, Wei-Chen Chen$^3$, \\
+Drew Schmidt$^1$, David Pierce$^4$
 \end{minipage}
 \\
 \\
-$^1$Remote Data Analysis and Visualization Center,\\
+$^1$National Institute for Computational Sciences, \\
 University of Tennessee, \\
 Knoxville, TN, USA \\
 \\
@@ -32,7 +32,11 @@ $^2$Computer Science and Mathematics Division, \\
 Oak Ridge National Laboratory, \\
 Oak Ridge, TN, USA \\
 \\
-$^3$Climate Research Division,\\
+$^3$Department of Ecology and Evolutionary Biology, \\
+University of Tennessee, \\
+Knoxville, TN, USA \\
+\\
+$^4$Climate Research Division,\\
 Scripps Institution of Oceanography,\\
 UC San Diego, \\
 San Diago, CA, USA
@@ -82,6 +86,7 @@ San Diago, CA, USA
 
 %% end of declarations %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\input{./pbdNCDF4-include/my_jss.cls}
 \input{./pbdNCDF4-include/00-preamble}
 
 \begin{document}
@@ -89,7 +94,7 @@ San Diago, CA, USA
 \pagenumbering{roman}
 \tableofcontents
 
-%\newpage
+\newpage
 \input{./pbdNCDF4-include/01-copyright}
 
 %% include your article here, just as usual
@@ -105,6 +110,7 @@ San Diago, CA, USA
 \input{./pbdNCDF4-include/01-introduction}
 \input{./pbdNCDF4-include/02-extra}
 \input{./pbdNCDF4-include/03-collective}
+\input{./pbdNCDF4-include/04-windows}
 
 \newpage
 \phantomsection

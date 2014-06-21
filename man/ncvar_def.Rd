@@ -64,7 +64,7 @@
 
  After a variable is defined with this call, and created on disk using
  \code{\link[pbdNCDF4]{nc_create}}, then data values for the variable can be written
- to disk using \code{\link[pbdNCDF4]{ncvar_put}}.
+ to disk using \code{ncvar_put}.
 
  This function returns a \code{ncvar} object, which describes the newly-created
  variable.  However, the \code{ncvar} object is used for more than just
@@ -97,9 +97,10 @@
 \author{David W. Pierce \email{dpierce@ucsd.edu}}
 \seealso{ 
  \code{\link[pbdNCDF4]{ncdim_def}}, \code{\link[pbdNCDF4]{nc_create}}, 
- \code{\link[pbdNCDF4]{ncvar_put}}.
+ \code{ncvar_put}.
 }
 \examples{
+\dontrun{
 # Define an integer dimension 
 dimState <- ncdim_def( "StateNo", "count", 1:50 )
 
@@ -148,5 +149,6 @@ varFloat <- ncvar_def( "varFloat", "meters", dimt, missval, prec="single")
 varDouble<- ncvar_def( "varDouble","meters", dimt, missval, prec="double")
 nctypes <- nc_create("vartypes.nc", list(varShort,varInt,varFloat,varDouble) )
 nc_close(nctypes)
+}
 }
 \keyword{utilities}
