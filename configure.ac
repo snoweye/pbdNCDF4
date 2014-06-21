@@ -15,6 +15,7 @@ CC=`${R_HOME}/bin/R CMD config CC`
 CFLAGS=`${R_HOME}/bin/R CMD config CFLAGS`
 
 # for ncdf4, I've chosen to REQUIRE the netcdf v4 interface
+AC_CONFIG_MACRO_DIR([tools])
 AC_PATH_NETCDF
 if test $NETCDF_V4 = "no"; then
 	echo "-------------------------------------------------------------------"

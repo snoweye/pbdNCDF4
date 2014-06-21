@@ -1703,6 +1703,7 @@ CFLAGS=`${R_HOME}/bin/R CMD config CFLAGS`
 # for ncdf4, I've chosen to REQUIRE the netcdf v4 interface
 
 
+
 # Check whether --with-nc_config was given.
 if test "${with_nc_config+set}" = set; then :
   withval=$with_nc_config; NC_CONFIG=$withval
