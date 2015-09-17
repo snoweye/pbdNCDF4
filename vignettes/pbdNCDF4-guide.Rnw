@@ -32,9 +32,7 @@ $^2$Computer Science and Mathematics Division, \\
 Oak Ridge National Laboratory, \\
 Oak Ridge, TN, USA \\
 \\
-$^3$Department of Ecology and Evolutionary Biology, \\
-University of Tennessee, \\
-Knoxville, TN, USA \\
+$^3$pbdR Core Team \\
 \\
 $^4$Climate Research Division,\\
 Scripps Institution of Oceanography,\\
