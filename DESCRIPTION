@@ -14,6 +14,7 @@ LazyLoad: yes
 LazyData: yes
 NeedsCompilation: yes
 ByteCompile: yes
+License: GPL (>= 3)
 Copyright: Most files are originally designed by David Pierce under GPL (>= 3).
 Description: This package adds collective parallel read and write capability
     to the R package ncdf4 version 1.8. Typical use is as a
