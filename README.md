@@ -8,12 +8,6 @@ pbdNCDF4 is a parallel version of ncdf4 package.  It offers an interface to para
 
 
 
-## Usage
-
-TODO
-
-
-
 ## Installation
 
 pbdNCDF4 requires
