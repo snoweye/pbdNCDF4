@@ -246,7 +246,7 @@ SEXP R_nc4_get_vara_numvarid( SEXP sx_nc, SEXP sx_varid, SEXP sx_start, SEXP sx_
 	int 	varid, ncid, ndims, len_start, len_count, i, j, ierr,
 		start_arg[MAX_NC_DIMS], count_arg[MAX_NC_DIMS],
 		*data_addr_i, missval_i, ndims_cgt1;
-	SEXP 	rv_data = R_NilValue /* -Wall */, sx_ncdf_var, sx_dim;
+	SEXP 	rv_data, sx_dim;
 	size_t	start[MAX_NC_DIMS], count[MAX_NC_DIMS], varsize[MAX_NC_DIMS], tot_var_size,
 		i_szt;
 	double	*data_addr_d, missval_d, missval_tol;
@@ -266,7 +266,7 @@ SEXP R_nc4_get_vara_numvarid( SEXP sx_nc, SEXP sx_varid, SEXP sx_start, SEXP sx_
 
 	varid = INTEGER(sx_varid)[0];
 	ncid  = INTEGER(R_ncu4_getListElement( sx_nc, "id" ))[0];
-	sx_ncdf_var = R_ncu4_getListElement( sx_nc, "var" );
+	R_ncu4_getListElement( sx_nc, "var" );
 
 	/*-----------------------------------------------------------------------
 	 * Copy passed start and count to local vars so we can modify them safely
@@ -528,7 +528,7 @@ SEXP R_nc4_get_vara_string( SEXP sx_nc, SEXP sx_varid, SEXP sx_start, SEXP sx_co
 	INTEGER( sx_reterror)[0] = 0;
 
 	/* Get number of dims in the var */
-	ierr = nc_inq_varndims( ncid, varid, &ndims );
+	nc_inq_varndims( ncid, varid, &ndims );
 
 	/*--------------------------------------------------------------
 	 * At this point we have all the C values we need:
@@ -540,7 +540,7 @@ SEXP R_nc4_get_vara_string( SEXP sx_nc, SEXP sx_varid, SEXP sx_start, SEXP sx_co
 	 *---------------------------------------------------------------*/
 	tot_count = 1L;
 	for( i=0; i<ndims; i++ ) 
-	 	tot_count *= count[i];
+	 	tot_count *= count[i]; // NOTE ndims <= MAX_NC_DIMS, so count[i] is always non-garbage
 
 	ss = (char **)malloc( sizeof( char *) * tot_count );
 	if( ss == NULL ) {
@@ -567,6 +567,7 @@ SEXP R_nc4_get_vara_string( SEXP sx_nc, SEXP sx_varid, SEXP sx_start, SEXP sx_co
 
 	/* Free netcdf string storage */
 	nc_free_string( tot_count, ss );
+	if (ss) free(ss);
 
 	return( sx_retval );
 }

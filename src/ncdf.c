@@ -431,6 +431,8 @@ void R_nc4_inq_dim( int *ncid, int *dimid, char **dimname, int *dimlen, int *unl
 	if( *retval != NC_NOERR ) {
 		Rprintf( "Error in R_nc4_inq_dim on nc_inq_unlimdims call (2): %s\n", 
 			nc_strerror(*retval) );
+		
+		free(unlimids);
 		return;
 		}
 
@@ -720,7 +722,7 @@ void R_nc4_put_vara_double( int *ncid, int *varid, int *start,
 	verbose = 0;
 
 	if( verbose ) {
-		err = nc_inq_varname( *ncid, *varid, varname );
+		nc_inq_varname( *ncid, *varid, varname );
 		Rprintf( "R_nc4_put_vara_double: entering with ncid=%d, varid=%d  (varname=%s)\n", 
 				*ncid, *varid, varname );
 		}
