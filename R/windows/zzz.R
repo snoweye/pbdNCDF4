@@ -80,7 +80,7 @@
     }
   }
 
-  flag <- as.logical(netcdf4.linked, flag)
+  flag <- as.logical(netcdf4.linked, TRUE)
 
   flag <- check_file(netcdf4.root, flag)
   flag <- check_file(netcdf4.bin, flag)
