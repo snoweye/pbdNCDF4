@@ -117,10 +117,11 @@
     library.dynam("pbdNCDF4", pkgname, libname)
   } else{
     base::cat("===== WARNING =====\n")
-    base::cat("- netCDF ", netcdf4.version, " may not install at compile time.\n", sep = "")
-    base::cat("- Environment variables may not be correct at compile and run time.\n")
-    base::cat("- pbdNCDF4 binary may not link with netCDF.\n")
-    base::cat("- Please consider rebuilding from source.\n")
+    base::cat("There was a problem installing pbdNCDF4...\n")
+    base::cat("- netCDF ", netcdf4.version, " may not have been installed at pbdNCDF4 compile time.\n", sep = "")
+    base::cat("- Environment variables may not be correct at compile and/or run time.\n")
+    base::cat("- The pbdNCDF4 binary may not be linked with netCDF.\n")
+    base::cat("\nPlease consider rebuilding from source.\n")
     base::cat("===================\n")
   }
 
