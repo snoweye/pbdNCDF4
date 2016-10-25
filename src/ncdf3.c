@@ -494,7 +494,7 @@ Rprintf( "warning, no match found for element %s\n", str );
 SEXP R_nc4_get_vara_string( SEXP sx_nc, SEXP sx_varid, SEXP sx_start, SEXP sx_count ) 
 {
 	SEXP	sx_retval, sx_retnames, sx_retstrings, sx_reterror;
-	int	i, ierr, nchar, varid, ncid, ndims, count_int[MAX_NC_DIMS], start_int[MAX_NC_DIMS], len_count, len_start; 
+	int	i, ierr, varid, ncid, ndims, count_int[MAX_NC_DIMS], start_int[MAX_NC_DIMS], len_count, len_start; 
 	size_t	count[MAX_NC_DIMS], start[MAX_NC_DIMS], tot_count, isz;
 	char 	**ss;
 
@@ -557,7 +557,6 @@ SEXP R_nc4_get_vara_string( SEXP sx_nc, SEXP sx_varid, SEXP sx_start, SEXP sx_co
 
 	PROTECT( sx_retstrings = allocVector( STRSXP, tot_count ));
 	for( isz=0L; isz<tot_count; isz++ ) {
-		nchar = strlen( ss[isz] );
 		SET_STRING_ELT( sx_retstrings, isz, mkChar(ss[isz]) );
 		}
 

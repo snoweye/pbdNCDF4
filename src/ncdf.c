@@ -623,10 +623,9 @@ void R_nc4_put_att_double( int *ncid, int *varid, char **attname,
 void R_nc4_put_att_text( int *ncid, int *varid, char **attname, 
 		int *type_to_create, int *natts, char **attribute, int *retval )
 {
-	nc_type ttc;
 	size_t attlen;
 
-	ttc = R_nc4_ttc_to_nctype( *type_to_create );
+	R_nc4_ttc_to_nctype( *type_to_create );
 	/* For some reason the C interface does not include the nc_type for this call */
 
 	attlen = strlen(attribute[0]);
