@@ -1,3 +1,10 @@
+2016-10-25: Ver 0.1-5
+  * Fixed compiler warnings and several serious static analyzer bugs.
+
+2016-08-08: Ver 0.1-5
+  * Fixed R CMD check NOTE on windows.
+  * A few internal cosmetic tweaks and improvements.
+
 2014-06-21: Ver. 0.1-4
   * Drop jss.cls and jss.bst
   * Add regenerate and aclocal.m4 back.

@@ -431,6 +431,8 @@ void R_nc4_inq_dim( int *ncid, int *dimid, char **dimname, int *dimlen, int *unl
 	if( *retval != NC_NOERR ) {
 		Rprintf( "Error in R_nc4_inq_dim on nc_inq_unlimdims call (2): %s\n", 
 			nc_strerror(*retval) );
+		
+		free(unlimids);
 		return;
 		}
 
@@ -623,10 +625,9 @@ void R_nc4_put_att_double( int *ncid, int *varid, char **attname,
 void R_nc4_put_att_text( int *ncid, int *varid, char **attname, 
 		int *type_to_create, int *natts, char **attribute, int *retval )
 {
-	nc_type ttc;
 	size_t attlen;
 
-	ttc = R_nc4_ttc_to_nctype( *type_to_create );
+	R_nc4_ttc_to_nctype( *type_to_create );
 	/* For some reason the C interface does not include the nc_type for this call */
 
 	attlen = strlen(attribute[0]);
@@ -721,7 +722,7 @@ void R_nc4_put_vara_double( int *ncid, int *varid, int *start,
 	verbose = 0;
 
 	if( verbose ) {
-		err = nc_inq_varname( *ncid, *varid, varname );
+		nc_inq_varname( *ncid, *varid, varname );
 		Rprintf( "R_nc4_put_vara_double: entering with ncid=%d, varid=%d  (varname=%s)\n", 
 				*ncid, *varid, varname );
 		}

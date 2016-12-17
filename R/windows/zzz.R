@@ -71,43 +71,26 @@
   netcdf4.bin <- gsub("/$", "", netcdf4.bin)
   netcdf4.deps <- gsub("/$", "", netcdf4.deps)
 
-  flag <- as.logical(netcdf4.linked)
-  if(!file.exists(netcdf4.root)){
-    base::cat("Not exits: ", netcdf4.root, "\n", sep = "")
-    flag <- FALSE
+  check_file <- function(f, flag){
+    if(!file.exists(f)){
+      base::cat("File does not exist: ", f, "\n", sep = "")
+      FALSE
+    } else {
+      flag
+    }
   }
-  if(!file.exists(netcdf4.bin)){
-    base::cat("Not exits: ", netcdf4.bin, "\n", sep = "")
-    flag <- FALSE
-  }
-  if(!file.exists(netcdf4.deps)){
-    base::cat("Not exits: ", netcdf4.deps, "\n", sep = "")
-    flag <- FALSE
-  }
-  if(!file.exists(netcdf4.msvcp100)){
-    base::cat("Not exits: ", netcdf4.msvcp100, "\n", sep = "")
-    flag <- FALSE
-  }
-  if(!file.exists(netcdf4.msvcr100)){
-    base::cat("Not exits: ", netcdf4.msvcr100, "\n", sep = "")
-    flag <- FALSE
-  }
-  if(!file.exists(netcdf4.zlib)){
-    base::cat("Not exits: ", netcdf4.zlib, "\n", sep = "")
-    flag <- FALSE
-  }
-  if(!file.exists(netcdf4.hdf5)){
-    base::cat("Not exits: ", netcdf4.hdf5, "\n", sep = "")
-    flag <- FALSE
-  }
-  if(!file.exists(netcdf4.hdf5_hl)){
-    base::cat("Not exits: ", netcdf4.hdf5_hl, "\n", sep = "")
-    flag <- FALSE
-  }
-  if(!file.exists(netcdf4.netcdf)){
-    base::cat("Not exits: ", netcdf4.netcdf, "\n", sep = "")
-    flag <- FALSE
-  }
+
+  flag <- as.logical(netcdf4.linked, TRUE)
+
+  flag <- check_file(netcdf4.root, flag)
+  flag <- check_file(netcdf4.bin, flag)
+  flag <- check_file(netcdf4.deps, flag)
+  flag <- check_file(netcdf4.msvcp100, flag)
+  flag <- check_file(netcdf4.msvcr100, flag)
+  flag <- check_file(netcdf4.zlib, flag)
+  flag <- check_file(netcdf4.hdf5, flag)
+  flag <- check_file(netcdf4.hdf5_hl, flag)
+  flag <- check_file(netcdf4.netcdf, flag)
 
   ### Set environment variables and load all dll files and package dll.
   if(flag){
@@ -134,10 +117,11 @@
     library.dynam("pbdNCDF4", pkgname, libname)
   } else{
     base::cat("===== WARNING =====\n")
-    base::cat("- netCDF ", netcdf4.version, " may not install at compile time.\n", sep = "")
-    base::cat("- Environment variables may not be correct at compile and run time.\n")
-    base::cat("- pbdNCDF4 binary may not link with netCDF.\n")
-    base::cat("- Please consider to rebuild from source.\n")
+    base::cat("There was a problem installing pbdNCDF4...\n")
+    base::cat("- netCDF ", netcdf4.version, " may not have been installed at pbdNCDF4 compile time.\n", sep = "")
+    base::cat("- Environment variables may not be correct at compile and/or run time.\n")
+    base::cat("- The pbdNCDF4 binary may not be linked with netCDF.\n")
+    base::cat("\nPlease consider rebuilding from source.\n")
     base::cat("===================\n")
   }
 
