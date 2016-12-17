@@ -15,19 +15,19 @@ LazyData: yes
 NeedsCompilation: yes
 ByteCompile: yes
 License: GPL (>= 3)
-Copyright: Most files are originally designed by David Pierce under GPL (>= 3).
+Copyright: Most files are originally designed by David Pierce under GPL
+        (>= 3).
 Description: This package adds collective parallel read and write capability
     to the R package ncdf4 version 1.8. Typical use is as a
     parallel NetCDF4 file reader in SPMD style programming. Each R
     process reads and writes its own data in a synchronized
     collective mode, resulting in faster parallel performance.
     Performance improvement is conditional on a parallel file system.
-SystemRequirements: OpenMPI (>= 1.5.4) on Solaris, Linux and Mac. (Parallel)
-    HDF5 and (Parallel) NetCDF4 (4.1 or later) libraries. No MPI library
-    required on Windows.
-License: GPL (>= 3)
+SystemRequirements: OpenMPI (>= 1.5.4) on Solaris, Linux and Mac.
+        (Parallel) HDF5 and (Parallel) NetCDF4 (4.1 or later)
+        libraries. No MPI library required on Windows.
 URL: http://r-pbd.org/
 BugReports: http://group.r-pbd.org/
-MailingList: Please send questions and comments regarding pbdR to RBigData@gmail.com
+MailingList: Please send questions and comments regarding pbdR to
+        RBigData@gmail.com
 Maintainer: Pragneshkumar Patel <pragnesh@utk.edu>
-

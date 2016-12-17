@@ -104,8 +104,8 @@ architecture.
 Before compile time, I check if the directories exists. If not, then I will
 set \code{NETCDF4_LINKED = FALSE} and feed
 a fake \code{a.c} to build a fake library in order to pass \code{R CMD check}.
-Note that this will eventually cause crashes at run time, so
-please check out \pkg{pbdNCDF4} binary from thirteen-01 or dropbox.
+% Note that this will eventually cause crashes at run time, so
+% please check out \pkg{pbdNCDF4} binary from thirteen-01 or dropbox.
 \item
 At compile time, I save
 \code{NETCDF4_ROOT_32}, \code{NETCDF4_ROOT_64}, and \code{NETCDF4_ROOT}
