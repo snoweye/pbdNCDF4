@@ -4,6 +4,7 @@
 #if (NETCDF_INCLUDE & 1) == 0
   #include <netcdf.h>
 #else
+  #include <netcdf.h>
   #include <netcdf_par.h>
 #endif
 

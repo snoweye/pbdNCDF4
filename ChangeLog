@@ -1,3 +1,7 @@
+2019-07-13: Ver 0.1-5
+  * Test with openmpi-4.0.1, hdf5-1.10.5 (--enable-parallel), and
+    netcdf-c-4.7.0 (--enable-netcdf4).
+
 2016-10-25: Ver 0.1-5
   * Fixed compiler warnings and several serious static analyzer bugs.
 
